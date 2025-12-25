@@ -1,28 +1,35 @@
 "use client"
 
 import { cn } from "@/lib/utils"
+import { differenceInCalendarDays } from "date-fns"
 
 interface TimelineBarProps {
   startDate: Date
   endDate: Date
   dates: Date[]
+  cellWidth: number
   label: string
   progress?: number
   variant: "project" | "task"
   status?: "done" | "todo" | "in-progress"
 }
 
-export function TimelineBar({ startDate, endDate, dates, label, progress, variant, status }: TimelineBarProps) {
+export function TimelineBar({ startDate, endDate, dates, cellWidth, label, progress, variant, status }: TimelineBarProps) {
   const firstDate = dates[0]
   const lastDate = dates[dates.length - 1]
-  const totalDays = (lastDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24) + 1
+  const totalDays = differenceInCalendarDays(lastDate, firstDate) + 1
 
-  // Calculate position and width
-  const startOffset = Math.max(0, (startDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24))
-  const duration = (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24) + 1
+  const startOffset = differenceInCalendarDays(startDate, firstDate)
+  const duration = differenceInCalendarDays(endDate, startDate) + 1
 
-  const leftPercent = (startOffset / totalDays) * 100
-  const widthPercent = (duration / totalDays) * 100
+  const visibleStart = Math.max(0, startOffset)
+  const visibleEnd = Math.min(totalDays, startOffset + duration)
+  const visibleDays = visibleEnd - visibleStart
+
+  if (visibleDays <= 0) return null
+
+  const leftPx = visibleStart * cellWidth
+  const widthPx = visibleDays * cellWidth
 
   // Format date range
   const formatDateShort = (date: Date) => {
@@ -52,10 +59,10 @@ export function TimelineBar({ startDate, endDate, dates, label, progress, varian
           "absolute top-0 h-full rounded-md border flex items-center px-3 transition-all",
           getStatusColor(),
         )}
+        title={`${dateRange}: ${label}`}
         style={{
-          left: `${leftPercent}%`,
-          width: `${Math.min(widthPercent, 100 - leftPercent)}%`,
-          minWidth: "100px",
+          left: leftPx,
+          width: widthPx,
         }}
       >
         <span className="text-xs font-medium truncate">

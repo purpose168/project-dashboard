@@ -50,7 +50,7 @@ export function ProjectsContent() {
   }
 
   return (
-    <div className="flex h-screen flex-col bg-background mx-2 my-2 border border-border rounded-lg">
+    <div className="flex flex-1 flex-col bg-background mx-2 my-2 border border-border rounded-lg min-w-0">
       <ProjectHeader
         filters={filters}
         onRemoveFilter={removeFilter}

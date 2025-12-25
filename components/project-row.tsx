@@ -5,35 +5,19 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { TimelineBar } from "@/components/timeline-bar"
 import { CaretDown, CaretRight, Folder, ChartBar } from "@phosphor-icons/react/dist/ssr"
 import { cn } from "@/lib/utils"
-
-interface Task {
-  id: string
-  name: string
-  assignee: string
-  status: "done" | "todo" | "in-progress"
-  startDate: Date
-  endDate: Date
-}
-
-interface Project {
-  id: string
-  name: string
-  taskCount: number
-  progress: number
-  startDate: Date
-  endDate: Date
-  tasks: Task[]
-}
+import type { Project } from "@/lib/data/projects"
 
 interface ProjectRowProps {
   project: Project
   isExpanded: boolean
   onToggle: () => void
   dates: Date[]
-  todayPosition: number
+  cellWidth: number
 }
 
-export function ProjectRow({ project, isExpanded, onToggle, dates, todayPosition }: ProjectRowProps) {
+export function ProjectRow({ project, isExpanded, onToggle, dates, cellWidth }: ProjectRowProps) {
+  const timelineWidth = dates.length * cellWidth
+
   return (
     <div className="border-b border-border/30">
       {/* Project Row */}
@@ -55,11 +39,12 @@ export function ProjectRow({ project, isExpanded, onToggle, dates, todayPosition
         </div>
 
         {/* Project Timeline */}
-        <div className="flex-1 relative py-3 pr-4 pt-4 pb-4 min-w-[600px]">
+        <div className="relative py-3 pr-4 pt-4 pb-4 shrink-0" style={{ width: timelineWidth }}>
           <TimelineBar
             startDate={project.startDate}
             endDate={project.endDate}
             dates={dates}
+            cellWidth={cellWidth}
             label={project.name}
             progress={project.progress}
             variant="project"
@@ -70,7 +55,7 @@ export function ProjectRow({ project, isExpanded, onToggle, dates, todayPosition
       {/* Task Rows */}
       <div className={cn("overflow-hidden transition-all duration-200", isExpanded ? "max-h-[500px]" : "max-h-0")}>
         {project.tasks.map((task) => (
-          <TaskRow key={task.id} task={task} dates={dates} />
+          <TaskRow key={task.id} task={task} dates={dates} cellWidth={cellWidth} />
         ))}
       </div>
     </div>
@@ -78,11 +63,12 @@ export function ProjectRow({ project, isExpanded, onToggle, dates, todayPosition
 }
 
 interface TaskRowProps {
-  task: Task
+  task: Project["tasks"][number]
   dates: Date[]
+  cellWidth: number
 }
 
-function TaskRow({ task, dates }: TaskRowProps) {
+function TaskRow({ task, dates, cellWidth }: TaskRowProps) {
   const [checked, setChecked] = useState(task.status === "done")
 
   const getStatusColor = (status: string) => {
@@ -110,17 +96,20 @@ function TaskRow({ task, dates }: TaskRowProps) {
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span>{task.assignee}</span>
             <ChartBar className="h-3 w-3" />
-            <span className={getStatusColor(task.status)}>{task.status === "done" ? "Done" : "Todo"}</span>
+            <span className={getStatusColor(task.status)}>
+              {task.status === "done" ? "Done" : task.status === "in-progress" ? "In progress" : "Todo"}
+            </span>
           </div>
         </div>
       </div>
 
       {/* Task Timeline */}
-      <div className="flex-1 relative py-2.5 pr-4 min-w-[600px]">
+      <div className="relative py-2.5 pr-4 shrink-0" style={{ width: dates.length * cellWidth }}>
         <TimelineBar
           startDate={task.startDate}
           endDate={task.endDate}
           dates={dates}
+          cellWidth={cellWidth}
           label={task.name}
           variant="task"
           status={task.status}

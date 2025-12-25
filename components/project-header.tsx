@@ -57,10 +57,19 @@ export function ProjectHeader({ filters, onRemoveFilter, onFiltersChange, counts
         </div>
         <div className="flex items-center gap-2">
           <ViewOptionsPopover options={viewOptions} onChange={onViewOptionsChange} />
-          <Button className="h-8 gap-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90">
-            <Sparkle className="h-4 w-4" weight="fill" />
-            Ask AI
-          </Button>
+          <div className="relative">
+            <div
+              className="relative rounded-xl border border-blue-900 shadow-[inset_0_11px_19.3px_0_rgba(0,0,0,0.25)] overflow-hidden"
+              style={{
+                background: 'conic-gradient(from 0deg at 50% 50%, #FFFFFF 80%, #FFFFFF 0%)',
+              }}
+            >
+              <Button className="h-8 gap-2 rounded-xl bg-gradient-to-r from-blue-900 to-blue-700 text-white hover:from-blue-800 hover:to-blue-600 relative z-10">
+                <Sparkle className="h-4 w-4" weight="fill" />
+                Ask AI
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </header>
