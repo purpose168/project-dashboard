@@ -1,23 +1,20 @@
-# Contributing
+# 贡献指南
 
-Thanks for checking out this project! This repository is primarily intended as a
-personal portfolio / learning resource, but small contributions and feedback are
-welcome.
+感谢您查看这个项目！这个仓库主要作为个人作品集/学习资源，但欢迎小的贡献和反馈。
 
-## Ways to contribute
+## 贡献方式
 
-- Improve documentation or clarify code comments.
-- Suggest small UX or UI improvements that keep the overall concept intact.
-- Fix minor bugs or accessibility issues.
+- 改进文档或澄清代码注释。
+- 建议保持整体概念完整的小型 UX 或 UI 改进。
+- 修复小错误或可访问性问题。
 
-If you want to propose a larger change (new feature, new layout, etc.), please
-open an issue first so we can discuss scope and direction.
+如果您想提出更大的更改（新功能、新布局等），请先打开一个问题（issue），以便我们可以讨论范围和方向。
 
-## Development workflow
+## 开发工作流程
 
-1. Fork the repository.
-2. Create a feature branch from `main`.
-3. Run the app locally and make sure the dashboard still works as expected.
-4. Open a pull request with a clear description of what you changed and why.
+1. Fork（分叉）这个仓库。
+2. 从 `main` 分支创建一个功能分支。
+3. 在本地运行应用程序，并确保仪表板仍然按预期工作。
+4. 打开一个拉取请求（Pull Request），清楚地描述您更改的内容和原因。
 
-Thanks again for your interest in this project!
+再次感谢您对这个项目的兴趣！
