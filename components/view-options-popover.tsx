@@ -76,7 +76,7 @@ export function ViewOptionsPopover({ options, onChange }: ViewOptionsPopoverProp
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="h-8 gap-2 rounded-lg border-border/60 px-3 bg-transparent">
           <Sliders className="h-4 w-4" />
-          View
+          视图
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 rounded-xl p-0" align="end">
@@ -101,9 +101,9 @@ export function ViewOptionsPopover({ options, onChange }: ViewOptionsPopoverProp
           </div>
 
           <div className="mt-4 space-y-3">
-            {/* Tasks Dropdown */}
+            {/* 任务下拉框 */}
             <div className="flex items-center justify-between">
-              <span className="text-sm">Tasks</span>
+              <span className="text-sm">任务</span>
               <Popover open={tasksOpen} onOpenChange={setTasksOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -137,9 +137,9 @@ export function ViewOptionsPopover({ options, onChange }: ViewOptionsPopoverProp
               </Popover>
             </div>
 
-            {/* Ordering Dropdown */}
+            {/* 排序下拉框 */}
             <div className="flex items-center justify-between">
-              <span className="text-sm">Ordering</span>
+              <span className="text-sm">排序</span>
               <Popover open={orderingOpen} onOpenChange={setOrderingOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -172,27 +172,27 @@ export function ViewOptionsPopover({ options, onChange }: ViewOptionsPopoverProp
               </Popover>
             </div>
 
-            {/* Show absent parent */}
+            {/* 显示缺失的父项目 */}
             <div className="flex items-center justify-between">
-              <span className="text-sm">Show absent parent</span>
+              <span className="text-sm">显示缺失的父项目</span>
               <Switch
                 checked={options.showAbsentParent}
                 onCheckedChange={(checked) => onChange({ ...options, showAbsentParent: checked })}
               />
             </div>
 
-            {/* Show closed projects */}
+            {/* 显示已关闭的项目 */}
             <div className="flex items-center justify-between">
-              <span className="text-sm">Show closed projects</span>
+              <span className="text-sm">显示已关闭的项目</span>
               <Switch
                 checked={options.showClosedProjects}
                 onCheckedChange={(checked) => onChange({ ...options, showClosedProjects: checked })}
               />
             </div>
 
-            {/* Group by */}
+            {/* 分组方式 */}
             <div className="flex items-center justify-between">
-              <span className="text-sm">Group by</span>
+              <span className="text-sm">分组方式</span>
               <Popover open={groupByOpen} onOpenChange={setGroupByOpen}>
                 <PopoverTrigger asChild>
                   <Button
@@ -226,9 +226,9 @@ export function ViewOptionsPopover({ options, onChange }: ViewOptionsPopoverProp
               </Popover>
             </div>
 
-            {/* Properties */}
+            {/* 属性 */}
             <div className="pt-2">
-              <span className="text-sm font-medium">Properties</span>
+              <span className="text-sm font-medium">属性</span>
               <div className="mt-2 flex flex-wrap gap-2">
                 {propertyOptions.map((prop) => (
                   <button
@@ -257,15 +257,16 @@ export function ViewOptionsPopover({ options, onChange }: ViewOptionsPopoverProp
             </div>
           </div>
 
+          {/* 底部操作按钮 */}
           <div className="mt-4 flex items-center justify-between border-t border-border/40 pt-4">
             <div className="flex items-center gap-1">
               <button className="flex items-center gap-1.5 text-sm text-primary hover:underline">
                 <Globe className="h-4 w-4" />
-                Set default
+                设置默认
               </button>
-              <span className="text-sm text-muted-foreground">for everyone</span>
+              <span className="text-sm text-muted-foreground">为所有人</span>
             </div>
-            <button className="text-sm text-primary hover:underline">Reset</button>
+            <button className="text-sm text-primary hover:underline">重置</button>
           </div>
         </div>
       </PopoverContent>
